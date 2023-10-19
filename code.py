@@ -13,6 +13,7 @@ class gui(Tk):
     def CANVAS(self,X_cord,Y_cord,text,s):
         global w
         global canvas
+        global inco
         canvas=Canvas(background="#DE9E46",height=900)
         l=[]
         p=0
@@ -20,16 +21,51 @@ class gui(Tk):
         #logic to keep word in middle of window
         para=len(w)/2
         sub=para*64
-        print(para)
+
         st=540-sub
         for i in range(len(w)):
             l.append("_")
             canvas.create_text(st+p,100,text=l[i],fill="#1c404c",font=('typewriter 50 bold'))
             p+=64
-        content=canvas.create_text(510,50,text="HANGMAN GAME",fill="#1c404c",font="gabriola 40 bold")
-        content=canvas.create_text(830,20,text="CHANCES LEFT : ",fill="#1c404c",font="gabriola 33")
-        content=canvas.create_text(510,185,text="ENTER YOUR PRIDICTION ",fill="#1c404c",font="gabriola 33 bold")
         canvas.create_text(X_cord,Y_cord,text=text,fill=f"#1c404c",font=f"typewriter {s} bold")
+        canvas.create_text(510,50,text="HANGMAN GAME",fill="#1c404c",font="gabriola 40 bold")
+        canvas.create_text(830,20,text="CHANCES LEFT : ",fill="#1c404c",font="gabriola 33")
+        canvas.create_text(510,185,text="ENTER YOUR PRIDICTION ",fill="#1c404c",font="gabriola 33 bold")
+        inco=Entry(canvas,width=25,highlightcolor="#1c404c",font=("gabriola",17),highlightthickness=4,background="#DE9E46",highlightbackground="#1c404c",relief=RAISED)
+        inco.place(x=390,y=221)
+        def take(event):
+            global z
+            
+            user=inco.get().lower()
+            inco.delete(0,END) 
+            def clr(i):
+                # global z
+                try:
+                    canvas.delete(i)    
+                except:
+                    pass
+            for i in range(len(letter)):
+                if user==letter[i] or user==w:
+                    letter.remove(letter[i])
+                    try:
+                        clr(z)
+                    except:
+                        pass
+                    z=canvas.create_text(300,300,text="YOU PRIDICTED A LETTER",fill=f"#1c404c",font=f"typewriter 12 bold")
+                    print(letter)
+                    break
+                else:
+                    try:
+                         clr(z)
+                    except:
+                        pass
+                    z=canvas.create_text(300,300,text="You pridicted letter not match",fill=f"#1c404c",font=f"typewriter 12 bold")
+                    break
+        
+            # self.CANVAS(user)
+        butt=Button(canvas,text="PRIDICT",relief=RAISED,width=16,height=0,bg="#1c404c",font="gabriola 24 bold",foreground="#DE9E46",activebackground="#1c404c",justify=CENTER)
+        butt.bind("<Button-1>",take)   
+        butt.place(x=391,y=274)
         canvas.pack(fill=BOTH)
         
 
@@ -38,28 +74,21 @@ class gui(Tk):
         global fru
         global w
         global chances
+        global letter
         fru=["apple","mango","cherry","peach","kiwi","grape",'orange','strawberry']
         w=random.choice(fru)
         chances=len(w)+4
         print(w,chances)
+        letter=list(w)
         self.CANVAS(972,20,f"{chances}",27)
 
-    def logic(self):
-        global user
-        inco=Entry(canvas,width=25,highlightcolor="#1c404c",font=("gabriola",15),highlightthickness=4,background="#DE9E46",highlightbackground="#1c404c",relief=RAISED)
-        inco.place(x=346,y=221)
-        def take(self):
-            user=inco.get()
-            print(user,chances)
-            inco.delete(0,END)
-            
-        butt=Button(canvas,text="PRIDICT",relief=RAISED,width=17,height=0,bg="#1c404c",font="gabriola 11 bold",foreground="#DE9E46",activebackground="#1c404c",justify=CENTER)
 
-        # canvas.create_rectangle(458,260,555,333,outline="#1c404c",width=8)
-        butt.bind("<Button-1>",take)   
-        butt.place(x=558,y=220)
-        #limiting input to one letter
-        # while True:
+
+
+    def input(self):
+
+        global inco
+        global user
         #     if len(user)==1 :
         #         break
         #     else:
@@ -67,22 +96,16 @@ class gui(Tk):
         #         break
         
         #matching letter
-        # for i in range(len(w)):
-        #     if user==frul[i]:
-        #         frul.remove(frul[i])
-        #         print(f"""YOU PREDICTED A RIGHT LETTER
-        #         chances left:- {left}""")
-                
-        #         return i
         
-        # return f"""You pridicted letter not match
-        #         chances  left:- {left}"""
-
+        # return f
 if __name__=="__main__":
     root=gui()
 #creating words that to be pridicted
 root.wordchosing()
-root.logic()
+# print(root.take())
+root.input()
+# def logic(user):
+    # fting input to one
 root.mainloop()
 
 
@@ -124,7 +147,7 @@ root.mainloop()
 
 
 
-# #logic to match input and letter of th word
+# #input to match input and letter of th word
 
 # #loop to take input no. of time as that of no. of letter or to check for win or lose
 # for i in range(chances):
