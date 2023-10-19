@@ -30,11 +30,16 @@ class gui(Tk):
             underscore=canvas.create_text(xcord,100+10,text=l[i],fill="#1c404c",font=('typewriter 50 bold'))
             index_loc.append(xcord)
             p+=64
-        def blanks(i,user):
+        def blank_filling(i,user):
+            # global user
             l[i]=str(user)
-            underscore=canvas.create_text(index_loc[i],100+10,text=l[i].upper(),fill="#1c404c",font=('typewriter 40 bold'))
-            index_loc.remove(index_loc[i])
-            # underscore.itemconfig(text=l[i])
+            try:
+                underscore=canvas.create_text(index_loc[i],100+10,text=l[i].upper(),fill="#1c404c",font=('typewriter 40 bold'))
+                print(i,index_loc)
+                index_loc.remove(index_loc[i])
+            except:
+                pass
+
 
         canvas.create_text(X_cord,Y_cord,text=text,fill=f"#1c404c",font=f"typewriter {s} bold")
         canvas.create_text(510,50,text="HANGMAN GAME",fill="#1c404c",font="gabriola 40 bold")
@@ -55,7 +60,22 @@ class gui(Tk):
                 except:
                     pass
             for i in range(len(letter)):
-                if user==letter[i]:
+                if user=="".join(letter) or l==[]:
+                    ll=list(user)
+                    for x in range(len(ll)):
+                        if len(index_loc)!=0:
+                            blank_filling(i,ll[x])
+                    try:
+                        clr(z)
+                    except:
+                        pass
+                    blank_filling(i,user)
+                    z=canvas.create_text(510,180+15,text="YOU WON",fill=f"#1c404c",font=f"gabriola 30 bold")
+                    print(letter)
+                    letter.clear()
+                    break
+
+                elif user==letter[i]:
                     letter.remove(letter[i])
                     try:
                         clr(z)
@@ -63,25 +83,14 @@ class gui(Tk):
                         pass
                     z=canvas.create_text(510,180+15,text="YOU PRIDICTED A LETTER",fill=f"#1c404c",font=f"gabriola 30 bold")
                     print(letter)
-                    blanks(i,user)
+                    blank_filling(i,user)
                     break
-                elif user==w:
-                    letter.clear()
-                    try:
-                        clr(z)
-                    except:
-                        pass
-                    z=canvas.create_text(510,180+15,text="YOU PRIDICTED ENTIRE WORD",fill=f"#1c404c",font=f"gabriola 30 bold")
-                    print(letter)
-                    break
-
                 else:
                     try:
                          clr(z)
                     except:
                         pass
                     z=canvas.create_text(510,180+15,text="You pridicted letter/word not match",fill=f"#1c404c",font=f"gabriola 30 bold")
-                    # break
                     continue
         
             # self.CANVAS(user)
