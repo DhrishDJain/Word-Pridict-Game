@@ -45,7 +45,7 @@ class gui(Tk):
                 except:
                     pass
             for i in range(len(letter)):
-                if user==letter[i] or user==w:
+                if user==letter[i]:
                     letter.remove(letter[i])
                     try:
                         clr(z)
@@ -54,6 +54,16 @@ class gui(Tk):
                     z=canvas.create_text(300,300,text="YOU PRIDICTED A LETTER",fill=f"#1c404c",font=f"typewriter 12 bold")
                     print(letter)
                     break
+                elif user==w:
+                    letter.clear()
+                    try:
+                        clr(z)
+                    except:
+                        pass
+                    z=canvas.create_text(300,300,text="YOU PRIDICTED ENTIRE WORD",fill=f"#1c404c",font=f"typewriter 12 bold")
+                    print(letter)
+                    break
+
                 else:
                     try:
                          clr(z)
