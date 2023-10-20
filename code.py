@@ -1,6 +1,8 @@
 import random
 from tkinter import *
 from tkinter import ttk
+from tkinter import messagebox
+
 
 class gui(Tk):
     def __init__(self):
@@ -9,6 +11,11 @@ class gui(Tk):
         self.maxsize(width=1000,height=600)
         self.minsize(width=1000,height=600)
         self.config(background="#DE9E46")
+    def clr(self,i):
+        try:
+            canvas.delete(i)    
+        except:
+            pass
 
     def CANVAS(self,X_cord,Y_cord,text,s):
         global w
@@ -31,7 +38,6 @@ class gui(Tk):
             index_loc.append(xcord)
             p+=64
         def blank_filling(i,user):
-            # global user
             l[i]=str(user)
             try:
                 underscore=canvas.create_text(index_loc[i],100+10,text=l[i].upper(),fill="#1c404c",font=('typewriter 40 bold'))
@@ -49,16 +55,9 @@ class gui(Tk):
         inco.place(x=390,y=221+100)
         def take(event):
             global z
-            
             user=inco.get()
-            # user.lower()
             inco.delete(0,END) 
-            def clr(i):
-                # global z
-                try:
-                    canvas.delete(i)    
-                except:
-                    pass
+
             for i in range(len(letter)):
                 if user=="".join(letter) or l==[]:
                     ll=list(user)
@@ -66,19 +65,20 @@ class gui(Tk):
                         if len(index_loc)!=0:
                             blank_filling(i,ll[x])
                     try:
-                        clr(z)
+                        self.clr(z)
                     except:
                         pass
                     blank_filling(i,user)
                     z=canvas.create_text(510,180+15,text="YOU WON",fill=f"#1c404c",font=f"gabriola 30 bold")
                     print(letter)
                     letter.clear()
+                    decision=messagebox.askyesno("askquestion","WANNA PLAY MORE!!")
                     break
 
                 elif user==letter[i]:
                     letter.remove(letter[i])
                     try:
-                        clr(z)
+                        self.clr(z)
                     except:
                         pass
                     z=canvas.create_text(510,180+15,text="YOU PRIDICTED A LETTER",fill=f"#1c404c",font=f"gabriola 30 bold")
@@ -87,7 +87,7 @@ class gui(Tk):
                     break
                 else:
                     try:
-                         clr(z)
+                         self.clr(z)
                     except:
                         pass
                     z=canvas.create_text(510,180+15,text="You pridicted letter/word not match",fill=f"#1c404c",font=f"gabriola 30 bold")
@@ -115,103 +115,7 @@ class gui(Tk):
 
 
 
-
-    def input(self):
-
-        global inco
-        global user
-        #     if len(user)==1 :
-        #         break
-        #     else:
-        #         print("Please enter a single letter")
-        #         break
-        
-        #matching letter
-        
-        # return f
 if __name__=="__main__":
     root=gui()
-#creating words that to be pridicted
 root.wordchosing()
-# print(root.take())
-root.input()
-# def logic(user):
-    # fting input to one
 root.mainloop()
-
-
-
-
-# backup_frul=w
-# number_of_letter=len(frul)
-
-# #no. of chances
-# chances=len(frul)
-# print(f"You can pridict {chances} letter")
-
-# #display
-# dis=[]
-# for i in range(len(frul)):
-#     dis.append("_")
-
-# repeated_index=[]
-# def counter():
-#     global repeated_letter
-#     for i in range(len(frul)):
-        
-#         v=frul.count(frul[i])
-#         if v>1:
-#             for u in range(len(frul)):
-#                 if frul[i]==frul[u]:
-#                     repeated_index.append(u)
-#             print(f"list of index repeated {repeated_index}")
-#             # index=[]
-#             # index.append(i)
-#             # # print(index)
-#             print(f"no. of time {frul[i]} repeated {v}")
-#             return frul[i]
-#             # return frul[i]
-
-            
-# repeated_letter=counter()
-# print (repeated_letter)
-
-
-
-# #input to match input and letter of th word
-
-# #loop to take input no. of time as that of no. of letter or to check for win or lose
-# for i in range(chances):
-#     # chances left counter
-#     left=(chances-1)-i
-#     p=match(left)
-    
-#     for i in range(len(backup_frul)):
-#         # dis[i]=user
-        
-#         if backup_frul[i]==user:
-#            dis[i]=user
-#            x="".join(dis)
-#            print(x)
-#            break
-#         if user==repeated_letter:
-#             for index in repeated_index:
-#                 dis[index]=user
-#                 # dis.pop(index)
-#                 repeated_index.remove(repeated_index[0])
-#                 break
-
-    
-#     #checking win or lose
-#     if frul==[]:
-#             print("CONGRATULATION!! you won")
-#             break
-#     elif chances==0:
-#             print(f"SORRY!! Better luck next time")
-#             break
-#     elif user=='quit':
-#         break
-
-#     #display
-            
-    
