@@ -1,6 +1,7 @@
 import random
 from tkinter import *
 from tkinter import ttk
+from tkinter import EventType
 from tkinter import messagebox
 from time import sleep
 class gui(Tk):
@@ -52,7 +53,7 @@ class gui(Tk):
         inco=Entry(canvas,width=25,highlightcolor="#1c404c",font=("gabriola",17),highlightthickness=4,background="#DE9E46",highlightbackground="#1c404c",relief=RAISED)
         inco.place(x=390,y=221+100)
     
-        def take(event):
+        def take(e):
             global z
             
             user=inco.get()
@@ -94,10 +95,12 @@ class gui(Tk):
                          self.clr(z)
                     except:
                         pass
-                    z=canvas.create_text(510,180+15,text="You pridicted letter/word not match",fill=f"#1c404c",font=f"gabriola 30 bold")
+                    z=canvas.create_text(510,180+15,text="You pridicted letter/word not match".upper(),fill=f"#1c404c",font=f"gabriola 30 bold")
                     continue
         butt=Button(canvas,text="PRIDICT",relief=RAISED,width=16,height=0,bg="#1c404c",font="gabriola 24 bold",foreground="#DE9E46",activebackground="#1c404c",justify=CENTER)
-        butt.bind("<Button-1>",take)   
+        # butt.bind("<Button-1>",take)   
+        butt.bind('<Return>',take)   
+
         butt.place(x=391,y=274+100)
         canvas.pack(fill=BOTH)
     
