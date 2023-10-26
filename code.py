@@ -22,15 +22,14 @@ class gui(Tk):
             global tkf
             global canvas
             self.clr(tkf)
-            # tkf.itemconfig(text=f"{chances}")
             tkf=canvas.create_text(972,20,text=f"{chances}",fill="#1c404c",font="typewriter 27 bold")
  
 
     def CANVAS(self,chances,w,letter):
         global canvas
         global inco
-        global tkf
         global counter
+        
         canvas=Canvas(background="#DE9E46",height=900)
         l=[]
         index_loc=[]
@@ -41,12 +40,16 @@ class gui(Tk):
         para=len(w)/2
         sub=para*64
         st=540-sub
+
+
         for i in range(len(w)):
             l.append("_")
             xcord=st+p
             underscore=canvas.create_text(xcord,100+10,text=l[i],fill="#1c404c",font=('typewriter 50 bold'))
             index_loc.append(xcord)
             p+=64
+
+
         def blank_filling(i,user):
             l[i]=str(user)
             try:
@@ -68,7 +71,7 @@ class gui(Tk):
             
             user=inco.get()
             inco.delete(0,END)
-            
+            count=0
             chances-=1
             for i in range(len(letter)):
                 try:
@@ -94,7 +97,7 @@ class gui(Tk):
                          z=canvas.create_text(510,180+15,text="YOU WON",fill=f"#1c404c",font=f"gabriola 30 bold")
                     letter.clear()
                     chances=0
-                    print(counter)
+                    count+=1
                     sleep(1.2)
                     decision=messagebox.askyesno("CONGRATULATION","WANNA PLAY MORE!!")
                     if decision==True:
@@ -113,14 +116,14 @@ class gui(Tk):
                     z=canvas.create_text(510,180+15,text="You pridicted letter/word not match".upper(),fill=f"#1c404c",font=f"gabriola 30 bold")
                     continue
                 break
-            if counter==0:
-                print(counter)
+            if count==0:
                 self.change(chances)
             
         butt=Button(canvas,text="PRIDICT",relief=RAISED,width=16,height=0,bg="#1c404c",font="gabriola 24 bold",foreground="#DE9E46",activebackground="#1c404c",justify=CENTER)
         butt.bind("<Button-1>",take)
-        if counter==0:
-            self.bind('<Return>',take) 
+        self.bind('<Return>',take)  
+        # if count==0:
+
         butt.place(x=391,y=274+100)
         canvas.pack(fill=BOTH)
     
