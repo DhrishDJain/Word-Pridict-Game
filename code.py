@@ -30,10 +30,12 @@ class gui(Tk):
         global canvas
         global inco
         global tkf
+        global counter
         canvas=Canvas(background="#DE9E46",height=900)
         l=[]
         index_loc=[]
         p=0
+        counter=0
         d=int(len(w)/2)
         #logic to keep word in middle of window
         para=len(w)/2
@@ -62,10 +64,11 @@ class gui(Tk):
         def take(e):
             global z
             global chances
+            global counter
             
             user=inco.get()
             inco.delete(0,END)
-            count=0
+            
             chances-=1
             for i in range(len(letter)):
                 try:
@@ -79,6 +82,7 @@ class gui(Tk):
                     z=canvas.create_text(510,180+15,text="ENTER A LETTER",fill=f"#1c404c",font=f"gabriola 30 bold")
                     chances+=1
                 elif user=="".join(letter) or l==[] or chances==0:
+                    counter+=1
                     ll=list(user)
                     for x in range(len(ll)):
                         if len(index_loc)!=0:
@@ -90,12 +94,12 @@ class gui(Tk):
                          z=canvas.create_text(510,180+15,text="YOU WON",fill=f"#1c404c",font=f"gabriola 30 bold")
                     letter.clear()
                     chances=0
-                    count+=1
+                    print(counter)
                     sleep(1.2)
                     decision=messagebox.askyesno("CONGRATULATION","WANNA PLAY MORE!!")
                     if decision==True:
                         self.destroy()
-                        reset()
+                        # reset()
                     else:
                         self.destroy()
                     break
@@ -109,14 +113,14 @@ class gui(Tk):
                     z=canvas.create_text(510,180+15,text="You pridicted letter/word not match".upper(),fill=f"#1c404c",font=f"gabriola 30 bold")
                     continue
                 break
-            if count==0:
+            if counter==0:
+                print(counter)
                 self.change(chances)
             
         butt=Button(canvas,text="PRIDICT",relief=RAISED,width=16,height=0,bg="#1c404c",font="gabriola 24 bold",foreground="#DE9E46",activebackground="#1c404c",justify=CENTER)
         butt.bind("<Button-1>",take)
-        self.bind('<Return>',take)  
-        # if count==0:
-
+        if counter==0:
+            self.bind('<Return>',take) 
         butt.place(x=391,y=274+100)
         canvas.pack(fill=BOTH)
     
