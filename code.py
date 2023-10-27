@@ -1,7 +1,6 @@
 import random
 from tkinter import *
 from tkinter import ttk
-# from tkinter import EventType
 from tkinter import messagebox
 from time import sleep
 class gui(Tk):
@@ -13,18 +12,12 @@ class gui(Tk):
         self.minsize(width=1000,height=600)
         self.config(background="#DE9E46")
 
-
-
     #function to clear previous canvas text
     def clr(self,i):
         try:
             canvas.delete(i)    
         except:
             pass
-
-
-
-
 
     #function to update and decrease(if matched condition) chances left canvas text 
     def change(self,chances):
@@ -33,15 +26,9 @@ class gui(Tk):
             self.clr(tkf)
             tkf=canvas.create_text(972,20,text=f"{chances}",fill="#1c404c",font="typewriter 27 bold")
  
-
-
     #var to stop one extra calling of change function from inside of take funtion (declared ahead)
     global counter
     counter=0
-    
-
-
-
 
     #function to create canvas
     def CANVAS(self,chances,w,letter):
@@ -77,10 +64,11 @@ class gui(Tk):
         tkf=canvas.create_text(972,20,text=f"{chances}",fill="#1c404c",font="typewriter 27 bold")
         canvas.create_text(830,20,text="CHANCES LEFT : ",fill="#1c404c",font="gabriola 33")
         canvas.create_text(510,185+100,text="ENTER YOUR PRIDICTION ",fill="#1c404c",font="gabriola 40 bold")
+
         inco=Entry(canvas,width=25,highlightcolor="#1c404c",font=("gabriola",17),highlightthickness=4,background="#DE9E46",highlightbackground="#1c404c",relief=RAISED)
         inco.place(x=390,y=221+100)
 
-        def take(e):
+        def take_input(e):
             global z
             global chances
             global counter
@@ -136,11 +124,16 @@ class gui(Tk):
             if counter==0:
                 self.change(chances)
             
+        hint=Button(canvas,text="HINT",relief=RAISED,width=16,height=0,bg="#1c404c",font="gabriola 24 bold",foreground="#DE9E46",activebackground="#1c404c",justify=CENTER)
+        hint.bind("<Button-1>",self.hint)  
+        hint.place(x=391-100,y=274+100)
         butt=Button(canvas,text="PRIDICT",relief=RAISED,width=16,height=0,bg="#1c404c",font="gabriola 24 bold",foreground="#DE9E46",activebackground="#1c404c",justify=CENTER)
-        butt.bind("<Button-1>",take)
-        self.bind('<Return>',take)  
+        butt.bind("<Button-1>",take_input)
+        self.bind('<Return>',take_input)  
         butt.place(x=391,y=274+100)
         canvas.pack(fill=BOTH)
+    
+    
     
     #function for chosing word 
     def wordchosing(self):
