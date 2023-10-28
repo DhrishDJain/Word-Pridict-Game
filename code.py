@@ -1,5 +1,6 @@
 import random
 from tkinter import *
+import tkinter as tk
 from tkinter import ttk
 from tkinter import messagebox
 from time import sleep
@@ -8,8 +9,11 @@ class gui(Tk):
         super().__init__()
         self.geometry("1000x600")
         self.title('HANGMAN GAME')
+        # img=PhotoImage(fi'C:\Users\Admin\Documents\GitHub\Word-pridiction-game-1\icon.png')
+        self.iconphoto(False,tk.PhotoImage(file="icon.png"))
         self.maxsize(width=1000,height=600)
         self.minsize(width=1000,height=600)
+        # self.overrideredirect(True)
         self.config(background="#DE9E46")
 
     #function to clear previous canvas text
