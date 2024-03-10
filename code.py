@@ -101,7 +101,7 @@ class gui(Tk):
             global counter
         
             
-            user=inco.get()
+            user=inco.get().lower()
             inco.delete(0,END)#calling inbuilt function that clear entries in entry width when called
             chances-=1
             #loop for checking weather the pridicted letter is in word of not and also showing its result
