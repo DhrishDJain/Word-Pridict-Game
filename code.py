@@ -9,7 +9,7 @@ class gui(Tk):
         super().__init__()
         self.geometry("1000x600")
         self.title('HANGMAN GAME')
-        self.iconphoto(False,tk.PhotoImage(file="icon.png"))
+        self.iconbitmap("E:\GitHub\Word Pridict Game\icon.ico")
         self.maxsize(width=1000,height=600)
         self.minsize(width=1000,height=600)
         self.config(background="#DE9E46")
