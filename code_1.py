@@ -8,7 +8,7 @@ class gui(Tk):
     def __init__(self):
         super().__init__()
         self.geometry("1000x600")
-        self.title('HANGMAN GAME')
+        self.title('Word Pridict Game')
         self.iconbitmap("E:\GitHub\Word Pridict Game\icon.ico")
         self.maxsize(width=1000,height=600)
         self.minsize(width=1000,height=600)
